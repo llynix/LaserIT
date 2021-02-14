@@ -26,6 +26,13 @@
   (if (= process 2) (mirror image drawable))
   (if (= process 3) (wood image drawable))
 
+  (define filename (car(gimp-image-get-filename image)))
+  (define parts (strbreakup filename "."))
+  (define base (car parts))
+  (define ext (cadr parts))
+
+  (gimp-image-set-filename image (string-append base "-laserit." ext))
+
   (gimp-context-pop)
   (gimp-image-undo-group-end image)
   (gimp-displays-flush)
@@ -62,7 +69,7 @@
 (script-fu-register
     "script-fu-laserit"
     "LaserIT!"
-    "Process images for laser engraving."
+    "Automatically Process images for laser engraving."
     "Anthony Taylor"
     "copyright 2021, Anthony Taylor"
     "2021"
@@ -74,4 +81,4 @@
     SF-VALUE      "Max Width (mm)"  "100"
     SF-VALUE	  "Max Height (mm)" "100"
 )
-(script-fu-menu-register "script-fu-laserit" "<Image>/LaserIT2")
+(script-fu-menu-register "script-fu-laserit" "<Image>/LaserIT!")
